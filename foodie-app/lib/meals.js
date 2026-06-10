@@ -8,7 +8,7 @@ const db = sql("meals.db");
 
 export async function getMeals() {
   // throw new Exception("Error Occurred.");
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   return db.prepare("Select * from meals").all();
 }
 
@@ -23,8 +23,8 @@ export async function saveMeal(meal) {
   const extension = meal.image.name.split(".").pop();
   const fileName = `${meal.slug}.${extension}`;
   const stream = fs.createWriteStream(`public/images/${fileName}`);
+ 
   const bufferedImage = await meal.image.arrayBuffer();
-
   stream.write(Buffer.from(bufferedImage), (error) => {
     if (error) {
       throw new Error("Saving image failed!");
